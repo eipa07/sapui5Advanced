@@ -1,12 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      */
-    function (Controller, JSONModel) {
+    function (Controller, JSONModel, Filter, FilterOperator) {
         "use strict";
 
         function onInit() {
@@ -45,6 +47,32 @@ sap.ui.define([
 
         }
 
+        function onFilter(){
+            var oJson = this.getView().getModel().getData();
+
+            var filters = [];
+
+            if(oJson.employeeId !== ''){
+                filters.push(new Filter("EmployeeID", FilterOperator.EQ, oJson.employeeId));
+            }
+
+            if(oJson.countryKey !== ''){
+                filters.push(new Filter("Country", FilterOperator.EQ, oJson.countryKey));
+            }
+
+            var oList = this.getView().byId("tableEmployee");
+            var oBinding = oList.getBinding("items");
+            oBinding.filter(filters);
+        }
+
+        function onClearFilter(){
+            var oModel = this.getView().getModel();
+            oModel.setProperty("/employeeId", '');
+            oModel.setProperty("/countryKey", '');
+        }
+
+
+
         var Main = Controller.extend("logaligroup.employees.controller.MainView", {});
 
         Main.prototype.onValidate = function () {
@@ -66,7 +94,8 @@ sap.ui.define([
 
 
         Main.prototype.onInit = onInit;
-
+        Main.prototype.onFilter = onFilter;
+        Main.prototype.onClearFilter = onClearFilter;
 
         return Main;
     });

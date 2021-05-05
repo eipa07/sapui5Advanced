@@ -10,7 +10,7 @@
                             <Label id="labelCountry" labelFor="slCountry" text="{i18n>labelCountry}" class="sapUiSmallMargin" visible="true"  />
                             <Select id="slCountry" forceSelection="false" visible="true" items="{/listCountry}" selectedKey="{/countryKey}" >
                                 <items>
-                                    <core:Item key="{/key}" text="{text}" />
+                                    <core:Item key="{key}" text="{text}" />
                                     
                                 </items>
                             </Select>
