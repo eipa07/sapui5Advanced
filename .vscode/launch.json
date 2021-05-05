@@ -18,7 +18,7 @@
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/logali/employees\"}"
       },
-      "envFile": "${workspaceFolder}/employees/.env1",
+      "envFile": "${workspaceFolder}/employees/.env2",
       "preLaunchTask": "Build logali"
     }
   ]
