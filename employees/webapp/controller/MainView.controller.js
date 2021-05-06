@@ -71,6 +71,14 @@ sap.ui.define([
             oModel.setProperty("/countryKey", '');
         }
 
+        function showPostalCode(oEvent){
+            var itemPresed = oEvent.getSource();
+            var oContext = itemPresed.getBindingContext();
+            var objectContext = oContext.getObject();
+
+            sap.m.MessageToast.show(objectContext.PostalCode);
+        }
+
 
 
         var Main = Controller.extend("logaligroup.employees.controller.MainView", {});
@@ -96,6 +104,6 @@ sap.ui.define([
         Main.prototype.onInit = onInit;
         Main.prototype.onFilter = onFilter;
         Main.prototype.onClearFilter = onClearFilter;
-
+        Main.prototype.showPostalCode = showPostalCode;
         return Main;
     });
