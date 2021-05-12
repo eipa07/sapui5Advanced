@@ -6,49 +6,50 @@
 					<content>
                         <HBox >
                             <Label id="labelEmployee" labelFor="inputEmployee" text="{i18n>labelEmployee}" class="sapUiSmallMargin" />
-                            <Input id="inputEmployee" maxLength="10" value="{/employeeId}" width="200px" class="sapUiSmallMarginEnd"  />
+                            <Input id="inputEmployee" maxLength="10" value="{jsonCountries>/EmployeeId}" width="200px" class="sapUiSmallMarginEnd"  />
                             <Label id="labelCountry" labelFor="slCountry" text="{i18n>labelCountry}" class="sapUiSmallMargin" visible="true"  />
-                            <Select id="slCountry" forceSelection="false" visible="true" items="{/listCountry}" selectedKey="{/countryKey}" >
+                            <Select id="slCountry" forceSelection="false" visible="true" items="{jsonCountries>/ListCountry}" selectedKey="{jsonCountries>/CountryKey}" >
                                 <items>
-                                    <core:Item key="{key}" text="{text}" />
-                                    
+                                    <core:Item key="{jsonCountries>Key}" text="{jsonCountries>Text}"/>
                                 </items>
                             </Select>
-                            <Button id="btnFilter" text="{i18n>BtnFilter}" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd" />
-                            <Button id="btnClearFilter" text="{i18n>btnClearFilter}" icon="sap-icon://clear-filter" press="onClearFilter" class="sapUiSmallMarginEnd" />
+                            <Button id="btnFilter" text="{i18n>BtnFilter}" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
+                            <Button id="btnClearFilter" text="{i18n>btnClearFilter}" icon="sap-icon://clear-filter" press="onClearFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
                         </HBox>
                         <HBox >
                             <Panel>
-                                <Table id="tableEmployee" items="{/employees}" >
+                                <Button id="btnShowCity" text="{i18n>showCity}" visible="{jsonModelConfig>/visibleBtnShowCity}" press="onShowCity" type="Emphasized"/>
+                                <Button id="btnHideCity" text="{i18n>hideCity}" visible="{jsonModelConfig>/visibleBtnHideCity}" press="onHideCity" type="Reject"/>
+                                <Table id="tableEmployee" items="{jsonEmployees>/}" >
                                     <columns>
-                                        <Column >
+                                        <Column visible="{jsonModelConfig>/visibleID}"> 
                                             <header>
-                                                <Label text="{i18n>tableId}"></Label>
+                                                <Label text="{i18n>tableId}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonModelConfig>/visibleName}"> 
                                             <header>
-                                                <Label text="{i18n>tableName}"></Label>
+                                                <Label text="{i18n>tableName}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonModelConfig>/visibleCountry}"> 
                                             <header>
-                                                <Label text="{i18n>tableCountry}"></Label>
+                                                <Label text="{i18n>tableCountry}"/>
                                             </header>
                                         </Column>
-                                        <Column >
+                                        <Column visible="{jsonModelConfig>/visibleCity}"> 
                                             <header>
-                                                <Label text="{i18n>tableCity}"></Label>
+                                                <Label text="{i18n>tableCity}"/>
                                             </header>
-                                        </Column>
+                                    </Column>
                                     </columns>
                                     <items>
                                         <ColumnListItem type="Active" press="showPostalCode" >
                                             <cells>
-                                                <Label text="{EmployeeID}" />
-                                                <Label text="{LastName}, {FirstName}" />
-                                                <Label text="{Country}" />
-                                                <Label text="{City}" />
+                                                <Label text="{jsonEmployees>EmployeeID}" />
+                                                <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}" />
+                                                <Label text="{jsonEmployees>Country}" />
+                                                <Label text="{jsonEmployees>City}" />
                                             </cells>
                                         </ColumnListItem>
                                     </items>
