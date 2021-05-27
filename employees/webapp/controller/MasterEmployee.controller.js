@@ -77,7 +77,7 @@ sap.ui.define([
             var iconPressed = oEvent.getSource();
 
             //Context from the model
-            var oContext = iconPressed.getBindingContext("jsonEmployees");
+            var oContext = iconPressed.getBindingContext("odataNorthwind");
 
             if(!this._oDialogOrders){
                 this._oDialogOrders = sap.ui.xmlfragment("logaligroup.employees.fragment.DialogOrders", this);
@@ -85,7 +85,7 @@ sap.ui.define([
             }
 
             //Dialog binding to the context to have accessto the data of selected item
-            this._oDialogOrders.bindElement("jsonEmployees>" + oContext.getPath());
+            this._oDialogOrders.bindElement("odataNorthwind>" + oContext.getPath());
             this._oDialogOrders.open();
 
 
@@ -174,30 +174,38 @@ sap.ui.define([
         }
 
         function showEmployee(oEvent){
-            var path = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
+            var path = oEvent.getSource().getBindingContext("odataNorthwind").getPath();
             this._bus.publish("flexible", "showEmployee", path);
+        };
+
+        function toOrderDetails(oEvent){
+            var orderID = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo("RouteOrderDetails", {
+                OrderID: orderID
+            });
         }
 
 
 
         var Main = Controller.extend("logaligroup.employees.controller.MasterEmployee", {});
 
-        Main.prototype.onValidate = function () {
+        // Main.prototype.onValidate = function () {
 
-            var inputEmployee = this.byId("inputEmployee");
-            var valueEmployee = inputEmployee.getValue();
+        //     var inputEmployee = this.byId("inputEmployee");
+        //     var valueEmployee = inputEmployee.getValue();
 
-            if (valueEmployee.length === 6) {
-                //inputEmployee.setDescription("OK");
-                this.getView().byId("labelCountry").setVisible(true);
-                this.getView().byId("slCountry").setVisible(true);
-            } else {
-                //inputEmployee.setDescription("fail");
-                this.getView().byId("labelCountry").setVisible(false);
-                this.getView().byId("slCountry").setVisible(false);
-            }
+        //     if (valueEmployee.length === 6) {
+        //         //inputEmployee.setDescription("OK");
+        //         this.getView().byId("labelCountry").setVisible(true);
+        //         this.getView().byId("slCountry").setVisible(true);
+        //     } else {
+        //         //inputEmployee.setDescription("fail");
+        //         this.getView().byId("labelCountry").setVisible(false);
+        //         this.getView().byId("slCountry").setVisible(false);
+        //     }
 
-        };
+        // };
 
 
         Main.prototype.onInit = onInit;
@@ -209,5 +217,6 @@ sap.ui.define([
         Main.prototype.showOrders = showOrders;
         Main.prototype.onCloseOrders = onCloseOrders;
         Main.prototype.showEmployee = showEmployee;
+        Main.prototype.toOrderDetails = toOrderDetails;
         return Main;
     });
