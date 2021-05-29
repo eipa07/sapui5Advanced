@@ -1,9 +1,9 @@
 // @ts-nocheck
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "logaligroup/employees/controller/Base.controller",
     "logaligroup/employees/model/formatter",
     "sap/m/MessageBox"
-], function (Controller, formatter, MessageBox) {
+], function (Base, formatter, MessageBox) {
 
     function onInit() {
         this._bus = sap.ui.getCore().getEventBus();
@@ -29,20 +29,19 @@ sap.ui.define([
 
         MessageBox.confirm(this.getView().getModel("i18n").getResourceBundle().getText("confirmDeleteIncidence"), {
             onClose: function (oAction) {
-                if (oAction === 'ok') {
+
+                if (oAction === "OK") {
                     this._bus.publish("incidence", "onDeleteIncidence", {
                         IncidenceId: contexjObj.IncidenceId,
                         SapId: contexjObj.SapId,
                         EmployeeId: contexjObj.EmployeeId
                     });
                 }
+
             }.bind(this)
         });
-
-
-
-
     };
+
 
     function onSaveIncidence(oEvent) {
         var incidence = oEvent.getSource().getParent().getParent();
@@ -121,15 +120,7 @@ sap.ui.define([
         context.getModel().refresh();
     };
 
-    function toOrderDetails(oEvent) {
-        var orderID = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
-        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        oRouter.navTo("RouteOrderDetails", {
-            OrderID: orderID
-        });
-    }
-
-    var EmployeeDetails = Controller.extend("logaligroup.employees.controller.EmployeeDetails", {});
+    var EmployeeDetails = Base.extend("logaligroup.employees.controller.EmployeeDetails", {});
 
     EmployeeDetails.prototype.onInit = onInit;
     EmployeeDetails.prototype.onCreateIncidence = onCreateIncidence;
@@ -140,7 +131,6 @@ sap.ui.define([
     EmployeeDetails.prototype.updateIncidenceCreationDate = updateIncidenceCreationDate;
     EmployeeDetails.prototype.updateIncidenceReason = updateIncidenceReason;
     EmployeeDetails.prototype.updateIncidenceType = updateIncidenceType;
-    EmployeeDetails.prototype.toOrderDetails = toOrderDetails;
 
     return EmployeeDetails;
 
