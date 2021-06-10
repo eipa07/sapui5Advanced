@@ -1,11 +1,35 @@
 <mvc:View controllerName="final.empleados.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content></content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+	
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Panel expandable="true" expanded="true" headerText="{i18n>headerEmpleados}">
+                <GenericTile
+                    headerImage="sap-icon://add-employee"
+                    press="toCrearEmpleado"
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    sizeBehavior="Responsive">
+                    <TileContent footer="{i18n>crearEmpleado}" />
+                </GenericTile>
+                <GenericTile
+                    headerImage="sap-icon://employee-lookup"
+                    press="toVerEmpleado"
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    sizeBehavior="Responsive">
+                    <TileContent footer="{i18n>verEmpleados}" />
+                </GenericTile>
+            </Panel>
+            <Panel expandable="true" expanded="true" headerText="{i18n>headerPedidos}">
+                <GenericTile
+                    headerImage="sap-icon://signature"
+                    press="press"
+                    url="https://c5571327trial-dev-logali-approuter.cfapps.us10.hana.ondemand.com/logaligroupemployees/index.html"
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    sizeBehavior="Responsive"
+                    >
+                    <TileContent footer="{i18n>firmarPedidos}" />
+                </GenericTile>
+            </Panel>           
+        </content>
+    </Page>
+
 </mvc:View>

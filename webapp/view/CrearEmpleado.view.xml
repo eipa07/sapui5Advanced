@@ -1,0 +1,132 @@
+<mvc:View controllerName="final.empleados.controller.CrearEmpleado" xmlns:mvc="sap.ui.core.mvc" 
+displayBlock="true" xmlns="sap.m"
+xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+>
+<Page id="pageContainer" title="{i18n>crearEmpleado}" >
+<content>
+	<NavContainer id="wizardNavContainer">
+    <pages>
+    <Page showHeader="false" >
+        <content>
+            
+                  <Wizard
+                    id="CrearEmpleado"
+                    finishButtonText="Finish"
+                    class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+					complete="completedHandler"
+                    currentStep="Tipo_empleado">
+                        <WizardStep id="Tipo_empleado"
+                                title="Tipo de empleado"
+                                validated="false"
+                                >
+                            <MessageStrip class="sapUiSmallMarginBottom" 
+                            text="{i18n>txtTipoEmpleado}" type="Warning" showIcon="true"/>
+                            <FlexBox height="100%" alignItems="Center" justifyContent="Center">
+                                <items>
+                                    <Button id="btnInterno" text="Interno" type="Transparent" class="sapUiSmallMarginEnd" press="nextStep('Interno')"/>
+                                    <Button id="btnAutonomo" text="Autónomo" type="Transparent" class="sapUiSmallMarginEnd" press="nextStep('Autonomo')"/>
+                                    <Button id="btnGerente" text="Gerente" type="Transparent" press="nextStep('Gerente')"/>
+                                </items>
+                            </FlexBox>
+                        </WizardStep>
+
+
+                        <WizardStep id="Datos_empleado"
+                                title="Datos de empleado"
+                                validated="false">
+                            <MessageStrip 
+                                class="sapUiSmallMarginBottom" 
+                                text="{i18n>txtDatosEmpleado}" 
+                                type="Warning" showIcon="true"/>
+                            <VBox class="sapUiSmallMargin">
+                                <f:SimpleForm id="frmDatosEmpleado" editable="true">
+                                    <f:content>
+                                        <Label text="{i18n>nombre}" required="true"/>
+                                        <Input id="txtNombre" value="{/Nombre}" required="true"  valueStateText="{i18n>obligatorio}" change="validaCampos"/>
+                                        <Label text="{i18n>apellidos}" required="true"/>
+                                        <Input id="txtApellidos" value="{/Apellido}" required="true"  valueStateText="{i18n>obligatorio}" change="validaCampos"/>
+                                        <Label id="lblDniCif" text="{/lbldnicif}" required="true"/>
+                                        <Input id="txtdnicif" value="{/DniCif}" enabled="true" change="validarDNI" required="true"  valueStateText="{i18n>obligatorio}"/>
+                                        <Label id="lblSBA" text="{/lblSBA}" />
+                                        <Slider 
+                                            min="{/sliderMin}" 
+                                            max="{/sliderMax}"
+                                            value="{/sliderValue}"
+                                            step="{/step}"
+                                            inputsAsTooltips="true" showAdvancedTooltip="true" enableTickmarks="true"
+                                            width="100%" progress="true" class="sapUiSmallMarginBottom" >
+                                            <ResponsiveScale tickmarksBetweenLabels="100"/>
+                                        </Slider>
+                                        <Label text="Fecha incorporación" />
+                                        <DatePicker
+                                            id="dpFechaInc"
+                                            placeholder="Enter Date ..."
+                                            class="sapUiSmallMarginBottom"
+                                            valueStateText="{i18n>obligatorio}"
+                                            change="validaCampos"
+                                            dateValue="{/FechaIncorporacion}"/>
+                                    </f:content>
+                                </f:SimpleForm>
+                            </VBox>
+                        </WizardStep>
+
+
+                         <WizardStep id="info_adicional"
+                                title="Información Adicional"
+                                validated="false">
+                            <MessageStrip class="sapUiSmallMarginBottom"
+                                    text="{i18n>txtInfAdicional}"
+                                    type="Warning"
+                                    showIcon="true"/>
+                                   
+                            <VBox class="sapUiSmallMargin">
+                             <Label text="{i18n>lblComentario}" />
+                                <TextArea value="{/Comentario}" id="txtAreaComentarios"
+                                        rows="7" showExceededText="true"  width="100%"/>
+                            <ToolbarSpacer />
+                            <UploadCollection
+                                id="UploadCollection"
+                                maximumFilenameLength="55"
+                                maximumFileSize="10"
+                                multiple="true"
+                                uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+                                sameFilenameAllowed="true"
+                                instantUpload="false"
+                                change="onChange"
+                                beforeUploadStarts="onBeforeUploadStart"
+                                noDataDescription="{i18n>incluirArchivos}" />
+                            </VBox>
+                            <Button text="Review" type="Accept" visible="true" press="goToReview" />
+                        </WizardStep>
+                 </Wizard>
+						
+        </content>
+        <footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Reject" text="{i18n>cancelar}" press="onCancelar"/>
+			</OverflowToolbar>
+		</footer>
+ </Page>
+
+        <Page id="wizardReviewPage" showHeader="true" title="{i18n>resumen}">
+        <content>
+            <core:Fragment fragmentName="final.empleados.fragment.ReviewPage" type="XML"/>
+        </content>
+        <footer>
+									<Toolbar>
+										<ToolbarSpacer></ToolbarSpacer>
+										<Button text="{i18n>guardar}" press="guardarEmpleado" type="Accept"></Button>
+										<Button text="{i18n>cancelar}" press="onCancelar" type="Reject"></Button>
+									</Toolbar>
+								</footer>
+    </Page>
+
+
+   
+    </pages>
+    </NavContainer>
+</content>
+    </Page>
+
+</mvc:View>

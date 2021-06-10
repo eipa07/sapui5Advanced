@@ -45,10 +45,10 @@
   "sap.ui5": {
     "flexEnabled": false,
     "rootView": {
-      "viewName": "final.empleados.view.Main",
+      "viewName": "final.empleados.view.App",
       "type": "XML",
       "async": true,
-      "id": "Main"
+      "id": "app"
     },
     "dependencies": {
       "minUI5Version": "1.60.1",
@@ -69,8 +69,9 @@
           "bundleName": "final.empleados.i18n.i18n"
         }
       },
-      "": {
+      "odataModel": {
         "dataSource": "mainService",
+        "type": "sap.ui.model.odata.v2.ODataModel",
         "preload": true,
         "settings": {
           "defaultBindingMode": "TwoWay",
@@ -99,9 +100,21 @@
       "routes": [
         {
           "name": "RouteMain",
-          "pattern": "RouteMain",
+          "pattern": "",
           "target": [
             "TargetMain"
+          ]
+        },{
+          "name": "RouteCrearEmpleado",
+          "pattern": "CrearEmpleado",
+          "target": [
+            "TargetCrearEmpleado"
+          ]
+        },{
+          "name": "RouteVerEmpleado",
+          "pattern": "VerEmpleado",
+          "target": [
+            "TargetVerEmpleado"
           ]
         }
       ],
@@ -112,6 +125,12 @@
           "clearControlAggregation": false,
           "viewId": "Main",
           "viewName": "Main"
+        },"TargetCrearEmpleado": {
+          "viewType": "XML",
+          "viewName": "CrearEmpleado"
+        },"TargetVerEmpleado": {
+          "viewType": "XML",
+          "viewName": "VerEmpleado"
         }
       }
     }

@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"  xmlns:form="sap.ui.layout.form">
+
+    <form:SimpleForm
+        title="{i18n>tipoEmpleado}"
+        minWidth="1024"
+        editable="false"
+        layout="ResponsiveGridLayout">
+        <form:content>
+            <Label text="{i18n>tipo}"/>
+            <Text text="{/tipoEmp}"/>
+            <Link press="editStepOne" text="{i18n>editar}" />
+        </form:content>
+    </form:SimpleForm>
+
+    <form:SimpleForm
+        title="{i18n>datosEmpleado}"
+        minWidth="1024"
+        editable="false"
+        layout="ResponsiveGridLayout">
+        <form:content>
+            <Label text="{i18n>nombre}"/>
+				<Text text="{/Nombre}"/>
+				<Label text="{i18n>apellidos}"/>
+				<Text text="{/Apellido}"/>
+				<Label text="{/lbldnicif}"/>
+				<Text  text="{/DniCif}"/>
+				<Label text="{/lblSBA}"/>
+				<Text  text="{/sliderValue}"/>
+				<Label text="{i18n>fechaIncorporacion}"/>
+				<Text  text="{path:'/FechaIncorporacion',type:'sap.ui.model.type.Date'}"/>
+				<Link press="editStepTwo" text="{i18n>editar}" />
+        </form:content>
+    </form:SimpleForm>
+
+    <form:SimpleForm
+        title="{i18n>infAdicional}"
+        minWidth="1024"
+        editable="false"
+        layout="ResponsiveGridLayout">
+        <form:content>
+           <Label text="{i18n>lblComentario}"/>
+				<Text text="{/Comentario}"/>
+				<Label text="{i18n>documentos}"/>
+				<Text text="{/_numFiles} {i18n>archivos}"/>
+				<Label></Label>
+				<List items="{/_files}">
+					<items>
+						<StandardListItem title="{DocName}"></StandardListItem>
+					</items>
+				</List>
+				<Link press="editStepThree" text="{i18n>editar}" />
+        </form:content>
+    </form:SimpleForm>
+
+
+
+
+</core:FragmentDefinition>
